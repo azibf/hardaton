@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+        body {
+            background-color: #ede9dd;
+}
+        p {
+           color:#b74b00;/* Цвет текста */
+        }
+</style>
+<h1 style="color:#b74b00;"  align="center">Информация о водителе</h1>
+<br></br>
+<div style="color:#b74b00;" class="col-md6 border rounded">
+    <div >
+        Фамилия: {{user.surname}}<br>
+        Имя: {{user.name}}<br>
+        Отчество: {{user.patronimic}}<br>
+        Особенности здоровья: {{user.comment}}<br>
+        {% if user.is_ready %}
+        Разрешение получено<br>
+        {% else %}
+        Нет резрешения<br>
+        {% endif %}
+
+    </div>
+
+    </div>
+<br></br>
+<form action="" method="post">
+    {{ form.hidden_tag() }}
+    {{ form.csrf_token }}
+
+    <p>
+        {{ form.doctor_comment.label }}<br>
+         <p>{{ form.doctor_comment(class="textarea") }}</p>
+        {% for error in form.doctor_comment.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+        <label for="classSelect">{{ form.allow.label}}</label>
+            <select class="form-control" id="classSelect" name="allow">
+            {% if (form.allow.data == "Разрешение получено")%}
+                <option>Есть разрешение</option>
+                <option>Нет разрешения</option>
+            {% else %}
+                <option>Нет разрешения</option>
+                <option>Есть разрешение</option>
+            {% endif %}
+             </select>
+        {% for error in form.allow.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </p>
+    <p>{{ form.submit(type="submit", class="btn btn-secondary") }}</p>
+    {{message}}
+</form>
+{% endblock %}

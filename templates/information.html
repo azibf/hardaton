@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+        body {
+            background-color: #ede9dd;
+}
+        p {
+           color:#b74b00;/* Цвет текста */
+        }
+</style>
+<h1 style="color:#b74b00; " align="center">Персональная информация</h1>
+<form action="" method="post">
+    {{ form.hidden_tag() }}
+    {{ form.csrf_token }}
+    <p>
+        {{ form.name.label }}<br>
+        {{ form.name(class="form-control") }}<br>
+        {% for error in form.name.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.surname.label }}<br>
+        {{ form.surname(class="form-control") }}<br>
+        {% for error in form.surname.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </p>
+        <p>
+        {{ form.patronimic.label }}<br>
+        {{ form.patronimic(class="form-control") }}<br>
+        {% for error in form.patronimic.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.age.label }}<br>
+        {{ form.age(class="form-control") }}<br>
+        {% for error in form.age.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.work_experience.label }}<br>
+        {{ form.work_experience(class="form-control") }}<br>
+        {% for error in form.work_experience.errors %}
+        <p class="alert alert-danger" role="alert">
+            {{ error }}
+        </p>
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.driver_license.label }}<br>
+        {{ form.driver_license(class="form-control") }}<br>
+        {% for error in form.driver_license.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.comment.label }}<br>
+            <p>{{ form.comment(class="textarea") }}</p>
+            {% for error in form.age.errors %}
+                <p class="alert alert-danger" role="alert">
+                    {{ error }}
+                </p>
+            {% endfor %}
+    </p>
+    <p>{{ form.submit(type="submit", class="btn btn-secondary") }}</p>
+    {{message}}
+</form>
+{% endblock %}

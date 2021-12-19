@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <style>
+        body {
+            background-color: #ede9dd;
+        }
+        p {
+            color: #b74b00; /* Цвет текста */
+        }
+        table {
+        text-align: left;
+        border-collapse: collapse;
+        box-shadow: 0 0 0 10px #b74b00;
+        color: #452F21;
+        }
+        th {
+        padding: 10px 8px;
+        background: white;
+        }
+
+        td {
+
+        border-top: 10px solid #b74b00;;
+        padding: 8px;
+        background: white;
+        }
+
+    </style>
+    <br>
+<div class="col-md6 border rounded">
+    <h1 style="color:#b74b00;" align="center">Перечень водителей</h1>
+        <br>
+        <br>
+            <table align="center">
+                <tr>
+                  <th>Фамилия</th>
+                  <th>Имя</th>
+                  <th>Отчество</th>
+
+                  <th>Давление</th>
+                  <th>Пульс</th>
+                  <th>Температура</th>
+                  <th>Реакция</th>
+                  <th>Алкотестер</th>
+
+                  <th>Допуск к управлению транспортом</th>
+                  <th>Комментарий</th>
+                  <th>Редактирование</th>
+                </tr>
+                {% for item in users%}
+                {% if (item.is_doctor == 0)%}
+                    <tr>
+                        <td>{{item.surname}}</td>
+                        <td>{{item.name}}</td>
+                        <td>{{item.patronimic}}</td>
+
+                        <td>{{item.pressure}}</td>
+                        <td>{{item.pulse}}</td>
+                        <td>{{item.temperature}}</td>
+                        <td>{{item.reaction}}</td>
+                        <td>{{item.sobriety}}</td>
+                        {% if (item.is_ready == 1)%}
+                        <td>Разрешение получено</td>
+                        {% else %}
+                        <td>Нет разрешения</td>
+                        {% endif %}
+                        <td>{{item.comment}}</td>
+                        <td>
+                            <div>
+                                <a href="/change/{{ item.id }}" class="btn btn-secondary">Редактировать</a>
+                            </div>
+                        </td>
+                    </tr>
+                {% endif %}
+                {% endfor %}
+            </table>
+         </br>
+</div>
+{% endblock %}

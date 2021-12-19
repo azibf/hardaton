@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+        body {
+            background-color: #ede9dd;
+}
+        p {
+           color:#b74b00;/* Цвет текста */
+        }
+</style>
+<h1 style="color:#b74b00;" align="center">Личный кабинет</h1>
+<br></br>
+<div class="col-md6 border rounded">
+    <br></br>
+    <div style="color:#b74b00;">
+        Фамилия: {{user.surname}}<br>
+        Имя: {{user.name}}<br>
+        Отчество: {{user.patronimic}}<br>
+        Водительское удостоверение: {{user.driver_license}}<br>
+        Особенности здоровья: {{user.comment}}<br>
+        {% if user.is_ready %}
+        Разрешение получено<br>
+        {% else %}
+        Нет резрешения<br>
+        {% endif %}
+        Заключение: {{user.doctor_comment}}<br>
+        Заключение вынес: {{doctor.surname}} {{doctor.name}} {{doctor.patronimic}}<br>
+    </div>
+    <div>
+        <a  \ href="/change_information"  class="btn btn-secondary">Изменить</a>
+    </div>
+    </div>
+<br></br>
+{% endblock %}
