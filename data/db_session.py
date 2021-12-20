@@ -17,7 +17,7 @@ def global_init(db_file):
         raise Exception("Необходимо указать файл базы данных.")
     conn_str = f'sqlite:///{db_file.strip()}?check_same_thread=False'
     print(f"Подключение к базе данных по адресу {conn_str}")
-    engine = create_engine("postgresql+psycopg2://synrjmpibdcoie:c3b5eef599c81287b40cc9895c38a8265e55830a5ccef239d1bd99db393ffc16@ec2-54-197-43-39.compute-1.amazonaws.com:5432/d6o2chqc2kp9gt")
+    engine = create_engine("postgresql+psycopg2://aialdmcjyfnyii:ec2-3-228-75-39.compute-1.amazonaws.com:5432/dasjrcvnriics5")
     __factory = orm.sessionmaker(bind=engine)
 
     from . import __all_models
