@@ -27,6 +27,7 @@ class InformationForm(FlaskForm):
     age = IntegerField('Возраст', validators=[DataRequired()])
     work_experience = IntegerField('Рабочий стаж', validators=[DataRequired()])
     driver_license = IntegerField('Водительская лицензия', validators=[DataRequired()])
+    sobriety = StringField('Содержания алкоголя', validators=[DataRequired()])
     comment = TextAreaField('Комментарии по состоянию здоровья', validators=[DataRequired()])
     submit = SubmitField('Добавить')
 
@@ -88,8 +89,8 @@ def login():
         user = session.query(User).filter(User.email == form.email.data).first()
         if user and user.hashed_password == form.password.data:
             login_user(user, remember=form.remember_me.data)
-            print(user.is_doctor)
             if user.is_doctor == 0:
+                check()
                 return redirect("/lk")
             else:
                 return redirect("/drivers")
@@ -125,12 +126,12 @@ def reqister(is_driver):
                 email=form.email.data,
                 pressure=0,
                 pulse=0,
-                temperature=0,
+                temperature='0',
                 reaction=0,
-                sobriety=0,
+                sobriety='0',
                 doctor_comment='',
                 is_ready=0,
-                doctor_id=1,
+                doctor_id=0,
                 hashed_password=form.password.data,
                 is_doctor=0
             )
@@ -161,9 +162,9 @@ def reqister(is_driver):
                 comment='',
                 pressure=0,
                 pulse=0,
-                temperature=0,
+                temperature='0',
                 reaction=0,
-                sobriety=0,
+                sobriety='0',
                 doctor_comment='',
                 is_ready=0,
                 doctor_id=1,
@@ -206,6 +207,7 @@ def change_info():
             form.age.data = user.age
             form.work_experience.data = user.work_experience
             form.driver_license.data = user.driver_license
+            form.sobriety.data = user.sobriety
             form.comment.data = user.comment
         else:
             abort(404)
@@ -217,6 +219,7 @@ def change_info():
             user.age = form.age.data
             user.work_experience = form.work_experience.data
             user.driver_license = form.driver_license.data
+            user.sobriety = form.sobriety.data
             user.comment = form.comment.data
             session.commit()
             return redirect('/lk')
@@ -230,6 +233,10 @@ def library():
     session = db_session.create_session()
     users = session.query(User).all()
     return render_template("drivers.html", title='Список водителей', users=users)
+
+@app.route("/reaction", methods=['GET', 'POST'])
+def check_reaction():
+    return render_template("inedx.html", title='Реакция')
 
 
 @app.route('/change/<int:id>', methods=['GET', 'POST'])
@@ -254,6 +261,33 @@ def change_user(id):
         else:
             abort(404)
     return render_template('change.html', title='Редактирование разрешения', form=form, user=user)
+
+
+def check():
+    session = db_session.create_session()
+    users = session.query(User).filter(User.is_doctor == 0).all()
+    drivers_id = [elem.id for elem in users]
+    new_comment = ""
+    for id in drivers_id:
+        elem = session.query(User).filter(User.id == id).first()
+        if elem.is_doctor != 1 and elem.doctor_id == 0:
+            print(elem.name)
+            if elem.pressure > 140:
+                new_comment += "Проблемы с давлением\n"
+            if not(50 <= elem.pulse <= 90):
+                new_comment += "Проблемы с пульсом\n"
+            if not(35.5 <= float(elem.temperature) <= 37):
+                new_comment += "Проблемы с темпераутрой\n"
+            if not elem.reaction:
+                new_comment += "Проблемы с реакцией\n"
+            if float(elem.sobriety.replace(',', '.')) > 0.16: #в миллиграммах
+                new_comment += "Обнаружен алкоголь\n"
+            if new_comment != "":
+                elem.doctor_comment = new_comment
+                elem.is_ready = False
+                elem.doctor_id = 0
+                session.commit()
+            print(new_comment)
 
 
 if __name__ == '__main__':

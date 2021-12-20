@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+    /* CSS styles */
+.container_for_game{
+  width: 450px;
+  height: 450px;
+  background-color: #b74b00;
+  margin: 250px auto;
+  position: relative;
+}
+
+.border{
+  width: 350px;
+  height: 350px;
+  background-color: #ede9dd;
+  position:absolute;
+  margin: 50px 50px;
+}
+
+.start_btn{
+  display: block;
+  max-width: 100px;
+  padding: 10px 5px 10px 5px;
+  margin: 200px auto;
+  cursor: pointer;
+  background-color: #e8b594;
+  text-align: center;
+}
+
+.square{
+  display: none;
+  width: 50px;
+  height: 50px;
+  background-color: #e8b594;
+  position:absolute;
+  left: 15px;
+  top: 15px;
+}
+
+.timer{
+  text-align: center;
+  margin-top: 250px auto;
+}
+
+
+.result{
+  display: none;
+  position:absolute;
+  margin-left:77.5px;
+  margin-top:10px;
+}
+
+.result_title{
+  display: none;
+}
+
+#score_p{
+  text-align:center;
+  margin: 0;
+}
+</style>
+<div>
+  <div class="timer" id="timer">30</div>
+  <div class="container_for_game" id="container_for_game">
+    <div class="border"  id="border">
+      <div class="result" id="result">
+        <div class="result_title" id="result_title">Ваш результат</div>
+        <div class="score" id="score"><p class="score_p" id="score_p"></p></div>
+      </div>
+      <div class="start_btn" id="start_btn" onclick="beginGame(this)">Start</div>
+      <div class="square" id="square" onclick="square(this)"></div>
+    </div>
+  </div>
+  <script type="text/javascript">
+    let timer_var = 30;
+    let k = 0;
+    let number = 0;
+    let sqr = 0;
+    let x = 45;
+    let y = 45;
+    let inter = setInterval(timer, 1000);
+    function timer(){
+      if (k > 0) timer_var--;
+      if (timer_var > 0) document.getElementById("timer").innerHTML = timer_var;
+      else {
+        document.getElementById("timer").innerHTML = "The end";
+        clearInterval(inter);
+
+        document.getElementById("square").style.display = "none";
+        document.getElementById("result").style.display = "block";
+        document.getElementById("result_title").style.display = "block";
+        let result = number / 30;
+
+        document.getElementById("result").innerHTML = result;
+        document.getElementById("square").style.display = "none";
+        document.getElementById("square").style.left = x + "px";
+        document.getElementById("square").style.top = y + "px";
+      }
+    }
+
+    function beginGame(){
+      timer()
+      if (k == 0){
+        k++;
+        sqr++;
+      }
+      number++;
+      document.getElementById("start_btn").style.display = "none";
+      document.getElementById("square").style.display = "block";
+    }
+
+    function square(){
+      x = Math.random() * (300 - 65);
+      y = Math.random() * (300 - 65);
+      document.getElementById("square").style.left = x + "px";
+      document.getElementById("square").style.top = y + "px";
+    }
+  </script>
+</div>
+{% endblock %}

@@ -68,6 +68,15 @@
         {% endfor %}
     </p>
     <p>
+        {{ form.sobriety.label }}<br>
+        {{ form.sobriety(class="form-control") }}<br>
+        {% for error in form.sobriety.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </p>
+    <p>
         {{ form.comment.label }}<br>
             <p>{{ form.comment(class="textarea") }}</p>
             {% for error in form.age.errors %}

@@ -41,6 +41,7 @@
             {% if current_user.is_authenticated %}
             {% if (current_user.is_doctor == 0) %}
              <a class="btn btn-link" style="color:white;" href="/lk">Личный кабинет</a>
+             <a class="btn btn-link" style="color:white;" href="/reaction">Проверка концентрации (beta)</a>
             {% else %}
              <a class="btn btn-link" style="color:white;" href="/drivers">Данные водителей</a>
             {% endif %}
@@ -52,7 +53,7 @@
     </header>
         <!-- Begin page content -->
         <main role="main" class="container">
-            {% block content %}<p>Hello</p>{% endblock %}
+            {% block content %}<p><br>Этот сайт был разработан командой студентов МГТУ им Н. Э. Баумана на инженерном вызове 2021. Данный сайт предназначен для мониторинга состояния водителя. Здесь вы можете найти информацию о таких критериях состояний как пульс, температура тела использующего его водителя и так далее. На сайте имеется две формы авторизации: в качестве водителя или доктора. Водитель видит данные о своём состоянии, а доктор может вносить в них изменения и на основании них предоставлять допуск к вождению.</p>{% endblock %}
         </main>
 </body>
 </html>

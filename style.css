@@ -1,0 +1,59 @@
+/* CSS styles */
+.container_for_game{
+  width: 500px;
+  height: 500px;
+  background-color: #FFD128;
+  margin: 250px auto;
+  position: relative;
+}
+
+.border{
+  width: 400px;
+  height: 400px;
+  background-color: #FFFCF0;
+  position:absolute;
+  margin: 50px 50px;
+}
+
+.start_btn{
+  display: block;
+  max-width: 100px;
+  padding: 10px 5px 10px 5px;
+  margin: 200px auto;
+  cursor: pointer;
+  background-color: #FFD128;
+  text-align: center;
+}
+
+.square{
+  display: none;
+  width: 50px;
+  height: 50px;
+  background-color: #ddd;
+  position:absolute;
+  left: 15px;
+  top: 15px;
+}
+
+.timer{
+  text-align: center;
+  margin-top: 250px auto;
+}
+
+
+.result{
+  display: none;
+  position:absolute;
+  margin-left:77.5px;
+  margin-top:10px;
+}
+
+.result_title{
+  display: none;
+}
+
+#score_p{
+  text-align:center;
+  margin: 0;
+}
+
