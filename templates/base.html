@@ -21,7 +21,7 @@
     <header>
     <nav class="navbar navbar-light" style="background-color: #e8b594;">
         <a class="navbar-brand" href="#">
-            <h1 style="color:#b74b00;">Система ***</h1>
+            <h1 style="color:#b74b00;">Система мониторинга состояния водителя</h1>
         {% if current_user.is_authenticated %}
                 <a class="navbar-brand" href="/logout" style="color:#b74b00;">{{ current_user.name }}</a>
             {% else %}
@@ -37,7 +37,7 @@
     <nav class="navbar navbar-light" style="background-color: #b3b3b3;">
         <a class="navbar-brand" href="#">
          <br>
-
+            <a class="btn btn-link" style="color:white;" href="/index">О нас</a>
             {% if current_user.is_authenticated %}
             {% if (current_user.is_doctor == 0) %}
              <a class="btn btn-link" style="color:white;" href="/lk">Личный кабинет</a>
@@ -52,7 +52,7 @@
     </header>
         <!-- Begin page content -->
         <main role="main" class="container">
-            {% block content %}{% endblock %}
+            {% block content %}<p>Hello</p>{% endblock %}
         </main>
 </body>
 </html>

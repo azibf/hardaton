@@ -68,16 +68,17 @@ class RegisterFormDoctor(FlaskForm):
     submit = SubmitField('Зерегистрироваться')
 
 
-@app.route('/<tit>')
-@app.route('/index/<tit>')
-def index(tit='Ok'):
-    return render_template('base.html', title=tit)
+@app.route('/')
+@app.route('/index')
+def index():
+    return render_template('base.html', title='Hello')
 
 
 @login_manager.user_loader
 def load_user(user_id):
     session = db_session.create_session()
     return session.query(User).get(user_id)
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -125,7 +126,7 @@ def reqister(is_driver):
                 pressure=0,
                 pulse=0,
                 temperature=0,
-                reaction='',
+                reaction=0,
                 sobriety=0,
                 doctor_comment='',
                 is_ready=0,
@@ -161,7 +162,7 @@ def reqister(is_driver):
                 pressure=0,
                 pulse=0,
                 temperature=0,
-                reaction='',
+                reaction=0,
                 sobriety=0,
                 doctor_comment='',
                 is_ready=0,
