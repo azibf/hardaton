@@ -1,11 +1,9 @@
-os
 flask_ngrok
 flask
 flask_wtf
 wtforms
 flask_login
 requests
-sys
 sqlalchemy
 werkzeug
 gunicorn
