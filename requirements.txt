@@ -8,3 +8,4 @@ requests
 sys
 sqlalchemy
 werkzeug
+gunicorn
